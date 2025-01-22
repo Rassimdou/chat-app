@@ -6,53 +6,20 @@ const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAutheStore();
   const [selectedImg, setSelectedImg] = useState(null);
 
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-
-const handleImageUpload = async (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) {
-        console.error('No file selected');
-        return;
-    }
+    if (!file) return;
 
-    // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
-        console.error('File size exceeds the allowed limit (5MB)');
-        return;
-    }
+    const reader = new FileReader();
 
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    if (!allowedTypes.includes(file.type)) {
-        console.error('Unsupported file type');
-        return;
-    }
+    reader.readAsDataURL(file);
 
-    try {
-        const reader = new FileReader();
-
-        reader.onload = async () => {
-            try {
-                const base64Image = reader.result;
-                setSelectedImg(base64Image); // Update state
-                await updateProfile({ profilePic: base64Image }); // Send to API
-                console.log('Profile updated successfully');
-            } catch (error) {
-                console.error('Error updating profile:', error);
-            }
-        };
-
-        reader.onerror = (error) => {
-            console.error('Error reading file:', error);
-        };
-
-        reader.readAsDataURL(file); // Start reading the file
-    } catch (error) {
-        console.error('Error handling image upload:', error);
-    }
-};
-
-  
+    reader.onload = async () => {
+      const base64Image = reader.result;
+      setSelectedImg(base64Image);
+      await updateProfile({ profilePic: base64Image });
+    };
+  };
 
   return (
     <div className="h-screen pt-20">

@@ -86,30 +86,36 @@ export const logout = (req,res)=>{
 };
 
 
-export const updateProfile = async(req , res)=>{
-try {
-    const {profilePic} = req.body;
-    const userId = req.user._id;
 
-    if(!profilePic){
-        return res.status(400).json({message :"Profile pic is required"});
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body; // Get the profile picture from the request body
+    const userId = req.user._id; // Get the user ID from the protectRoute middleware
+
+    // Validate the request payload
+    if (!profilePic) {
+      return res.status(400).json({ message: "Profile picture is required" });
     }
 
-    const uploadResponse = await cloudinary.uploader(profilePic)
+    // Update the user's profile picture in the database
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic },
+      { new: true } // Return the updated user
+    );
 
-    const updatedUser = await User.findByIdAndUpdate(userId,
-        {profilePic:uploadResponse.secure_url},
-        {new:true})
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-        res.status(200).json(updatedUser);
-} catch (error) {
-    console.log("error in update profile.",error);
-    res.status(500).json({message :"Internal server error"})
-    
-}
-
-}
-
+    // Send the updated user data back to the client
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error in updateProfile controller:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 export const checkAuth = (req , res)=>{
     try {
         res.status(200).json(req.user);
@@ -118,3 +124,4 @@ export const checkAuth = (req , res)=>{
         res.status(500).json({message :"Internal Server Error"});
     }
 }
+
