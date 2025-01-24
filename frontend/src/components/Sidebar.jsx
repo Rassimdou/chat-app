@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAutheStore } from "../store/useAuthStore";
-import SidebarSkeletons from "./skeletons/SidebarSkeletons";
+import SidebarSkeleton from "./skeletons/SideBarSkeleton";
 import { Users } from "lucide-react";
 
 const Sidebar = () => {
@@ -19,7 +19,7 @@ const Sidebar = () => {
     : Array.isArray(users) ? users : [];
 
   if (isUsersLoading || !Array.isArray(users)) {
-    return <SidebarSkeletons />;
+    return <SidebarSkeleton />;
   }
 
   return (
