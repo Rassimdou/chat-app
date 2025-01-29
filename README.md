@@ -1,8 +1,8 @@
 # ✨ Full Stack Realtime Chat App ✨
 
-(![image](https://github.com/user-attachments/assets/10728aa2-bbc5-4bab-b8ed-d1f203fa5123)
+![image](https://github.com/user-attachments/assets/10728aa2-bbc5-4bab-b8ed-d1f203fa5123)
 
-)
+
 
 
 Highlights:
