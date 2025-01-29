@@ -1,6 +1,6 @@
 # ✨ Full Stack Realtime Chat App ✨
 
-![Demo App](![5zami](https://github.com/user-attachments/assets/c5624d79-75b2-43e4-8fe1-2e14d7274027)
+![Demo App]([![5zami](https://github.com/user-attachments/assets/c5624d79-75b2-43e4-8fe1-2e14d7274027)](https://github.com/Rassimdou/chat-app/blob/main/frontend/public/5zami.png?raw=true)
 )
 
 
